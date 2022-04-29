@@ -5,7 +5,6 @@ router.post('/', async(req, res, next) =>  {
   try {
       /* 請在此填寫答案 */
       // 取得來自 request body 的資料
-      
       // 驗證是否有 content 欄位 -> 若有則使用 mongoose 語法新增資料 -> 回傳成功回應
       //                       -> 未填寫 content 欄位 -> 回傳失敗回應
     try {
@@ -32,6 +31,17 @@ router.post('/', async(req, res, next) =>  {
   }
 })
 
+router.get('/:id', async(req, res, next) => {
+  const id = req.params.id;
+  await Post.findById(id);
+  res.send(
+    {
+      status: true,
+      message: message,
+      data,
+    }
+  );
+}
 
 module.exports = router;
 
