@@ -33,14 +33,23 @@ router.post('/', async(req, res, next) =>  {
 
 router.get('/:id', async(req, res, next) => {
   const id = req.params.id;
-  await Post.findById(id);
-  res.send(
-    {
-      status: true,
-      message: message,
-      data,
-    }
-  );
+  if (id) {
+    const data = await Post.findById(id);
+    res.send(
+      {
+        status: true,
+        message: '成功取得該筆貼文',
+        data,
+      }
+    );
+  } else {
+    res.send(
+      {
+        status: false,
+        message: '請在確認 id 是否正確'
+      }
+    )
+  }
 }
 
 module.exports = router;
